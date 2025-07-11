@@ -60,7 +60,7 @@ pip install -r requirements.txt
 ### 🚀 Run the Server
 
 ```bash
-python main.py
+python src/main.py
 ```
 
 By default, the app runs on `http://localhost:5000/`
@@ -220,9 +220,9 @@ All endpoints are public and intended for local/test usage only.
 -   **How It Works**:
     -   Tracks every `GET`/`POST`/`PATCH` request to flashcard endpoints
     -   Colors represent request volume per day (darker = more requests)
-> `visits_info` is empty by default, so the heatmap will show only one green square for today. To test better, paste the following [sample data](./sample_data.txt) inside visits_info in [main.py](./main.py) line 21
+> `visits_info` (dict which stores date and number of requests for plotting heatmap) is empty by default, so the heatmap will show only one green square for today. To test better, paste the following [sample data](./sample/sample_data.txt) inside visits_info in [main.py](./src/main.py) line 21
 
-> Heatmap with the [sample data](./sample_data.txt)
+> Heatmap of [sample data](./sample/sample_data.txt)
 > ![Description](./assets/heatmap.png)
  ---
 
@@ -252,8 +252,8 @@ A flashcard object has the following structure:
 ## 🧪 Testing the API in Postman
 
 To test this API:
-- [See - POST requests Collection](./POST_requests.postman_collection.json): Contains POST requests
-- [See - OTHER requests Colletion](./OTHER_requests.postman_collection.json): Contains GET, PATCH, DELETE requests
+- [See - POST requests Collection](./docs/POST_requests.postman_collection.json): Contains POST requests
+- [See - OTHER requests Colletion](./docs/OTHER_requests.postman_collection.json): Contains GET, PATCH, DELETE requests
 
 > 📌 To import: 
 > 1.  Open Postman   
