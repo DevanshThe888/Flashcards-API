@@ -239,8 +239,8 @@ A flashcard object has the following structure:
 ## 🧪 Testing the API in Postman
 
 To test this API:
-- [Download - POST requests Collection](./POST_requests.postman_collection.json): Contains POST requests
-- [Download - Error Tests Collection](./OTHER_requests.postman_collection.json): Contains GET, PATCH, DELETE requests
+- [See - POST requests Collection](./POST_requests.postman_collection.json): Contains POST requests
+- [See - OTHER requests Colletion](./OTHER_requests.postman_collection.json): Contains GET, PATCH, DELETE requests
 
 > 📌 To import: 
 > 1.  Open Postman   
