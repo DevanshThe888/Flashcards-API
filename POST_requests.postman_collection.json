@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "a09574db-893c-493a-86df-3dcfe0e3423e",
+		"name": "POST requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "tagged",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"2 + 2 =\",\r\n  \"answer\": \"4\",\r\n  \"tag\": \"Green\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Flashcard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Flashcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tagged",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"Who's the Prime Minister of India?\",\r\n  \"answer\": \"Narendra Modi\",\r\n  \"tag\": \"Green\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Flashcard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Flashcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tagged",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\": \"What is the capital of Canada?\",\r\n    \"answer\": \"Ottawa\",\r\n    \"tag\": \"RED\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Flashcard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Flashcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tagged",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\": \"What planet is known as the Red Planet?\",\r\n    \"answer\": \"Mars\",\r\n    \"tag\": \"YELLOW\"\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Flashcard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Flashcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tagged",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"question\": \"2 + 2 + 2 + 2 + 2 = \",\r\n  \"answer\": \"10\",\r\n  \"tag\" : \"RED\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Flashcard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Flashcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "un_tagged",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n    \"question\": \"In which continent is the Sahara Desert located?\",\r\n    \"answer\": \"Africa\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/Flashcard",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Flashcard"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
