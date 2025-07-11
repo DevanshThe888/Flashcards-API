@@ -251,15 +251,15 @@ A flashcard object has the following structure:
 
 ## 🧪 Testing the API in Postman
 
-To test this API:
+To test this API you can choose one of the two ways:
+### 1) Directly open in Postman:
+- [Link - POST requests Collection](https://www.postman.com/devansh-476259/flashcard-api/collection/3zifqr3/post-requests?action=share&source=copy-link&creator=46517971): Contains POST requests
+- [Link - OTHER requests Colletion](https://www.postman.com/devansh-476259/flashcard-api/collection/qnwscyf/other-requests?action=share&source=copy-link&creator=46517971): Contains GET, PATCH, DELETE requests
+
+### 2) Manually download JSON file and Import in Postman
 - [See - POST requests Collection](./docs/POST_requests.postman_collection.json): Contains POST requests
 - [See - OTHER requests Colletion](./docs/OTHER_requests.postman_collection.json): Contains GET, PATCH, DELETE requests
 
-> 📌 To import: 
-> 1.  Open Postman   
-> 2.  Click **Import**  
-> 3.  Upload the `.json` file
----
 
 ## 🚨 Error Codes
 
