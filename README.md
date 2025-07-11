@@ -18,6 +18,27 @@ A lightweight RESTful API to manage flashcards for spaced repetition learning. U
 
 http://localhost:5000/
 
+Visiting this base URL in browser or API tool will return a summary of all available endpoints in JSON format.
+
+Example:
+
+```json
+{
+  "message": "Flashcard API",
+  "endpoints": {
+    "all_flashcards": "/Flashcard/all",
+    "red_flashcards": "/Flashcard/red",
+    "yellow_flashcards": "/Flashcard/yellow",
+    "green_flashcards": "/Flashcard/green",
+    "single_flashcard": "/Flashcard/<int:flashcard_id>",
+    "create_flashcard": "/Flashcard [POST]",
+    "update_flashcard": "/Flashcard/<int:flashcard_id> [PATCH]",
+    "delete_flashcard": "/Flashcard/<int:flashcard_id> [DELETE]",
+    "activity_heatmap": "/heatmap"
+  }
+}
+```
+
 ---
 
 ## ⚙️ Local Setup
@@ -27,8 +48,8 @@ Follow these steps to run the project locally:
 ### 🔁 Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd <project-folder>
+git clone https://github.com/DevanshThe888/Flashcards-API.git
+cd Flashcards-API
 ```
 
 ### 📦 Install Dependencies
@@ -61,7 +82,7 @@ All endpoints are public and intended for local/test usage only.
 
 ### 1. Create a Flashcard
 - **HTTP Verb**: `POST`
-- **URL**: `/postFlashcard`
+- **URL**: `/Flashcard`
 - **Purpose**: Create a new flashcard.
 - **Request Body (JSON)**:
   ```json
@@ -84,15 +105,13 @@ All endpoints are public and intended for local/test usage only.
     ```
 - Error Responses: 
   - `400 Bad Request` if `question`/`answer`/`tag` is missing
-  - `400 Bad Request` if `tag` is invalid
+  - `400 Bad Request` if `tag` is invalid (ie anything except red, yellow, green (case-insensitive))
   - `400 Bad Request` if `question` already exists
 
 
 ### 2. Retrieve All Flashcards
 - **HTTP Verb**: `GET`
-- **URL**: 
-	- `/get_allFlashcards`  
-	- `/get_allFlashcards?reveal=true` 
+- **URL**: `/Flashcard/all`  
 - **Purpose**: Get all flashcards (answers hidden by default)
  - **Optional Query Parameter**:  `reveal=true`: Show answers (`reveal=yes`/`1` also works)
  - **Success Response**: `200 OK` + List of flashcards (without answers unless revealed)
@@ -101,7 +120,6 @@ All endpoints are public and intended for local/test usage only.
 	  {
 	    "id": 0,
 	    "question": "What is the capital of France?",
-	    "answer": "Paris",
 	    "tag": "GREEN"
 	  },
 	  {
@@ -127,65 +145,69 @@ All endpoints are public and intended for local/test usage only.
 	]
 	
     ```
-    ### 4. Retrieve a Single Flashcard
+  ### 3. Retrieve Flashcards by Tag
 
 -   **HTTP Verb**: `GET`
--   **URL**: `/getFlashcard/<int:flashcard_id>`
--   **Purpose**: Get a flashcard by its ID
--   **Optional Query Parameter**:
-    -   `reveal=true`: Show answer
--   **Success Response**:
-    -   `200 OK` + Flashcard data:
+-   **URLs**:
+    -   `/Flashcard/red`
+    -   `/Flashcard/yellow`
+    -   `/Flashcard/green`
+-   **Purpose**: Filter flashcards by tag
+-   **Optional Query Parameter**:  `reveal=true`: Show answers
+-   **Success Response**: `200 OK` + List of filtered flashcards
+    
 
-```json
-  {
-	"id": 1, 
-	"question": "...", 
-	"tag": "GREEN"
-  }  // No answer unless revealed
-  
-```
--   **Error Response**:
-    -   `404 Not Found` if `flashcard_id` doesn't exist
+### 4. Retrieve a Single Flashcard
+- **HTTP Verb**: `GET`
+- **URL**: `/Flashcard/<int:flashcard_id>`
+- **Purpose**: Get a flashcard by its ID.
+- **Optional Query Parameter**: `reveal=true`: Show answer
+ - **Success Response**: `200 OK` + Flashcard data
+   ```json
+    {
+	 "id": 1, 
+	 "question": "...",
+	 "tag": "GREEN"
+    } // No answer unless revealed
+    
+    ```
+- Error Responses: `404 Not Found` if `flashcard_id` doesn't exist
+
+
 ### 5. Update a Flashcard
+- **HTTP Verb**: `PATCH`
+- **URL**: `/Flashcard/<int:flashcard_id>`
+- **Purpose**: Update a flashcard (partial/complete updates allowed)
+- **Request Body (JSON)**:
+  ```json
+   {
+    "question": "Updated question?",
+    "answer": "Updated answer",
+    "tag": "YELLOW"
+   } // all fields are optional
+   
+  ```
+ - **Success Response**: `200 OK` + {"message" : "updated"}
+- Error Responses: 
+  - `404 Not Found` if `flashcard_id` doesn't exist
+  - `400 Bad Request` if `tag` is invalid
+  - `400 Bad Request` if `question` already exists 
 
--   **HTTP Verb**: `PATCH`
--   **URL**: `/patchFlashcard/<int:flashcard_id>`
--   **Purpose**: Update a flashcard (partial updates allowed)
--   **Request Body (JSON)**:
-
-```json
-  {
-	"question": "Updated question?",
-	"answer": "Updated answer",
-	"tag": "YELLOW"  
-  } // Optional fields
-  
-```
-
--   **Success Response**:
-    -   `200 OK` + `{"message": "updated"}`
--   **Error Responses**:
-    -   `404 Not Found` if `flashcard_id` doesn't exist
-    -   `400 Bad Request` for duplicate questions or invalid tags
 
 ### 6. Delete a Flashcard
 
 -   **HTTP Verb**: `DELETE`
--   **URL**: `/deleteFlashcard/<int:flashcard_id>`
+-   **URL**: `/Flashcard/<int:flashcard_id>`
 -   **Purpose**: Delete a flashcard by ID
--   **Success Response**:
-    -   `204 No Content` (empty body)
--   **Error Response**:
-    -   `404 Not Found` if `flashcard_id` doesn't exist
+-   **Success Response**: `204 No Content` (empty body)
+-   **Error Response**: `404 Not Found` if `flashcard_id` doesn't exist
 
 ### 7. Activity Heatmap
 
 -   **HTTP Verb**: `GET`
 -   **URL**: `/heatmap`
 -   **Purpose**: Generate a heatmap PNG of user activity (days with API calls)
--   **Success Response**:
-    -   `200 OK` + PNG image
+-   **Success Response**: `200 OK` + PNG image
 -   **How It Works**:
     -   Tracks every `GET`/`POST`/`PATCH` request to flashcard endpoints
     -   Colors represent request volume per day (darker = more requests)
@@ -213,13 +235,12 @@ A flashcard object has the following structure:
 | `tag`     | string | Yes      | Must be one of: `RED`, `YELLOW`, `GREEN` (case-insensitive)    |
 ---
 
+
 ## 🧪 Testing the API in Postman
 
 To test this API:
-
-- Import the complete Postman Collection from here - 
-	-[Download Postman Collection 1 - POST requests](./POST_requests.postman_collection.json)
-	-[Download Postman Collection 2 - GET, PATCH, DEL, heatmap requests](./GET_DEL_PATCH_requests.postman_collection.json)
+- [Download - POST requests Collection](./POST_requests.postman_collection.json): Contains POST requests
+- [Download - Error Tests Collection](./OTHER_requests.postman_collection.json): Contains GET, PATCH, DELETE requests
 
 > 📌 To import: 
 > 1.  Open Postman   
