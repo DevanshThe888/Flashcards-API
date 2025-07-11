@@ -113,7 +113,7 @@ All endpoints are public and intended for local/test usage only.
 ### 2. Retrieve All Flashcards
 - **HTTP Verb**: `GET`
 - **URL**: `/Flashcard/all`  
-- **Purpose**: Get all flashcards (answers hidden by default)
+- **Purpose**: Get all flashcards (answers hidden by default, otherwise a flashcard's purpose is defeated)
  - **Optional Query Parameter**:  `reveal=true`: Show answers (`reveal=yes`/`1` also works)
  - **Success Response**: `200 OK` + List of flashcards (without answers unless revealed)
    ```json
