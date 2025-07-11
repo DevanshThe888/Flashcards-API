@@ -213,6 +213,7 @@ All endpoints are public and intended for local/test usage only.
 -   **How It Works**:
     -   Tracks every `GET`/`POST`/`PATCH` request to flashcard endpoints
     -   Colors represent request volume per day (darker = more requests)
+> `visits_info` is empty by default, so the heatmap will show only one green square for today. To test better, paste the following [sample data](./sample_data.txt) inside visits_info in [main.py](./main.py) line 21
  ---
 
 ## 📐 Flashcard Data Schema
