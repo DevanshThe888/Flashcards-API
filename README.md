@@ -154,6 +154,13 @@ All endpoints are public and intended for local/test usage only.
     -   `/Flashcard/yellow`
     -   `/Flashcard/green`
 -   **Purpose**: Filter flashcards by tag
+  	
+| Tag   | Meaning                                      |
+|--------|----------------------------------------------|
+| RED    | You frequently forget this — review often     |
+| YELLOW | You remember it sometimes                    |
+| GREEN  | You know this well — review less often        |
+
 -   **Optional Query Parameter**:  `reveal=true`: Show answers
 -   **Success Response**: `200 OK` + List of filtered flashcards
     
