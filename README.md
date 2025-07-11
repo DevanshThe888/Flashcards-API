@@ -107,6 +107,7 @@ All endpoints are public and intended for local/test usage only.
   - `400 Bad Request` if `question`/`answer`/`tag` is missing
   - `400 Bad Request` if `tag` is invalid (ie anything except red, yellow, green (case-insensitive))
   - `400 Bad Request` if `question` already exists
+  - `400 Bad Request` if `question`/`answer` is empty string
 
 
 ### 2. Retrieve All Flashcards
@@ -191,7 +192,8 @@ All endpoints are public and intended for local/test usage only.
 - Error Responses: 
   - `404 Not Found` if `flashcard_id` doesn't exist
   - `400 Bad Request` if `tag` is invalid
-  - `400 Bad Request` if `question` already exists 
+  - `400 Bad Request` if `question` already exists
+  - `400 Bad Request` if `question`/`answer` is empty string
 
 
 ### 6. Delete a Flashcard
