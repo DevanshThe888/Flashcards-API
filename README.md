@@ -7,8 +7,9 @@ A lightweight RESTful API to manage flashcards for spaced repetition learning. U
 ## 🔧 Features
 
 - Create flashcards with question, answer, and difficulty tag
-- Retrieve flashcards by ID, all, or filtered by tag
+- Retrieve flashcards by ID, all, or filtered by tag; Answer hiding/revealing mechanism
 - Partial updates using PATCH
+- Strict input validation
 - In-memory storage (no external DB)
 - View usage heatmap with calendar-style visualization
 
