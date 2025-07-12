@@ -7,17 +7,17 @@ from functools import wraps
 app = Flask(__name__)
 api = Api(app)
 
+# Event Listener kinda thing; keeps track of number of requests made on a given day and stores that in visits_info
 def decorator(func):
   @wraps(func)
   def wrapper(*args, **kwargs):
     res = func(*args, **kwargs)
     today = date.today() # date object ("%Y-%m-%d")
-    # str_today = today.isoformat() # date string ("%Y-%m-%d")
     visits_info[today] = visits_info.get(today, 0) + 1
     return res
   return wrapper
 
-flashcards = {} # Memory : stores flashcard's questions, answers, tags
+flashcards = {} # Stores all flashcards: {id: {"question": ..., "answer": ..., "tag": ...}}
 visits_info = {} # key : date, value : number of times GET/GET_all/POST/PATCH requested on a given day
 
 # for parsing POST requests
@@ -32,6 +32,7 @@ patch_parser.add_argument("question", type=str, required=False)
 patch_parser.add_argument("answer", type=str, required=False)
 patch_parser.add_argument("tag", type=str, required=False)
 
+# serializes return JSON depending on reveal status
 def serialize_card(flashcard_id, data, reveal=False):
   out = {}
   out["id"] = flashcard_id
@@ -41,14 +42,19 @@ def serialize_card(flashcard_id, data, reveal=False):
   out["tag"] = data["tag"]
   return out
 
-# checks no "tag" other than RED, YELLOW, GREEN (case insensitive) should be there
+# checks if "tag" other than RED, YELLOW, GREEN (case insensitive) exists, then discards it
 def check_tag(stripped_args):
   tag = stripped_args["tag"]
   if tag and tag.upper() not in ["RED", "YELLOW", "GREEN"]:
     abort(400, message="Choose one amongst RED, YELLOW, or GREEN")
   return
 
-# checks if "question" already exists
+# Validates question uniqueness across all flashcards.
+# There's a slight difference in usage wrt POST and PATCH due to which "flashcard_id" parameter is introduced
+#   - For POST: Checks if question exists in any flashcard (flashcard_id=None)
+#   BUT
+#   - For PATCH: Checks if question exists in other flashcards (excludes current flashcard_id)
+#     Reason : allows updating its own formatting
 def question_already_exists(stripped_args, flashcards, flashcard_id = None):
   for key, data in flashcards.items():
     if flashcard_id is key:
@@ -61,16 +67,16 @@ def abort_if_flashcard_not_found(flashcard_id):
   if flashcard_id not in flashcards.keys():
     abort(404, message="Flashcard not found.")
 
+# Check if value is empty after stripping
 def validate_non_empty(field, value):
-    # Check if value is empty after stripping
-    if value is not None and not value.strip():
-        abort(400, message=f"{field.capitalize()} cannot be empty")
+  if value is not None and not value.strip():
+    abort(400, message=f"{field.capitalize()} cannot be empty")
 
 class get_allResource(Resource):
   @decorator
   def get(self):
     reveal = request.args.get("reveal", "false").lower() in ("1", "yes", "true")
-    # convert : dict of dicts(flashcards) -> list of dicts(flashcards_list) and return the list
+    # convert : dict of dicts(flashcards) -> list of dicts and returns
     return [
       serialize_card(key, data, reveal)
       for key, data in flashcards.items()
@@ -103,7 +109,7 @@ class postResource(Resource):
     args = post_parser.parse_args()
   # why strip args : 
   #  checks if question exists already : " 2 + 2 = " and "2 + 2 =" are same
-  #  convert tags : " RED " -> "RED" so can compare with ["RED", "YELLOW", "GREEN"]
+  #  convert tags : " Red " -> "RED" so can compare with ["RED", "YELLOW", "GREEN"]
     post_stripped_args = { 
       "question" : args.get("question").strip(), 
       "answer" : args.get("answer").strip(), 
@@ -115,7 +121,7 @@ class postResource(Resource):
 
     check_tag(post_stripped_args)
     question_already_exists(post_stripped_args, flashcards)
-    unique_server_id = max(flashcards.keys(), default=-1) + 1   # allot a unique_server_id
+    unique_server_id = max(flashcards.keys(), default=-1) + 1   # allot a unique_server_id to the flashcard
     flashcards[unique_server_id] = post_stripped_args
     return {"id" : unique_server_id, **flashcards[unique_server_id]}, 201
 
