@@ -253,7 +253,7 @@ A flashcard object has the following structure:
 ## 🧪 Testing the API in Postman
 
 To test this API you can use pre-made requests collections by me in one of the two ways:
-### 1) Directly open my Public Collections in Postman:
+### 1) Directly open Public Collections in Postman:
 - [Link - POST requests Collection](https://www.postman.com/devansh-476259/flashcard-api/collection/3zifqr3/post-requests?action=share&source=copy-link&creator=46517971): Contains POST requests
 - [Link - OTHER requests Colletion](https://www.postman.com/devansh-476259/flashcard-api/collection/qnwscyf/other-requests?action=share&source=copy-link&creator=46517971): Contains GET, PATCH, DELETE requests
 
